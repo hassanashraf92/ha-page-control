@@ -116,8 +116,14 @@ public class VFEPageControl: UIView {
     }
     
     private func createViews() {
-        dotViews = (0..<pages).map { index in
+        let reversed = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+        let dotViews = (0..<pages).map { index in
             delegate?.viewForDot(at: index) ?? CircularView(frame: CGRect(origin: .zero, size: CGSize(width: dotSize, height: dotSize)))
+        }
+        if reversed {
+            self.dotViews = dotViews.reversed()
+        } else {
+            self.dotViews = dotViews
         }
     }
     
